@@ -1,0 +1,1 @@
+<button data-bs-pegawai='<?= json_encode($data, JSON_PRETTY_PRINT) ?>' class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-printer"></i></button></td>

@@ -1,0 +1,1 @@
+<button id="btnLihatPegawai" data-id='<?= $data->id ?>' data-json='<?= json_encode($pegawai)  ?>' data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-primary">Lihat</button>
