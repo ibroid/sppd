@@ -95,3 +95,5 @@ assets/*
 !assets/images/login.png
 !assets/favicon
 !assets/favicon_mobile
+
+.env
