@@ -88,4 +88,53 @@ class App extends CI_Controller
             'menu_name_only' => $this->db->select('id,menu_name')->from('menus')->get()->result()
         ]);
     }
+
+    public function notification_config()
+    {
+        template('template', 'notification_config', []);
+    }
+
+    public function notif_test()
+    {
+        if (!must_post()) {
+            set_status_header(404);
+            exit();
+        }
+
+        try {
+            $data = array(
+                'chatId' => request("nomor_telepon"),
+                'text' => 'Hi there!',
+                'session' => 'default'
+            );
+
+            $data_string = json_encode($data);
+
+            $ch = curl_init($_ENV["WA_API_URL"] . "/api/sendText");
+
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string)
+            ));
+
+            $result = curl_exec($ch);
+
+            curl_close($ch);
+
+            // Menampilkan hasil
+            // prindie($result);
+            $this->session->set_flashdata("notif", $result);
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->session->set_flashdata("notif", $th->getMessage());
+        }
+
+
+        redirect('/app/notification_config');
+    }
 }

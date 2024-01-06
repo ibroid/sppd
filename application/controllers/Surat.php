@@ -22,6 +22,8 @@ class Surat extends CI_Controller
             $this->session->set_userdata('awal_periode', request('awal'));
             $this->session->set_userdata('akhir_periode', request('akhir'));
         }
+
+        $this->load->database();
     }
     public function index()
     {
