@@ -106,7 +106,7 @@ class App extends CI_Controller
         try {
             $data = array(
                 'chatId' => request("nomor_telepon"),
-                'text' => 'Hi there!',
+                'text' => 'TEST NOTIFIKASI DARI APLIKASI SURAT',
                 'session' => 'default'
             );
 
