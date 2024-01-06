@@ -33,7 +33,7 @@ CREATE TABLE `accessible_menu` (
   `menu_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `accessible_menu`
@@ -100,7 +100,7 @@ CREATE TABLE `disposisi` (
   `isi_disposisi` text NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,7 @@ CREATE TABLE `disposisi_order` (
   `jabatan_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,7 @@ CREATE TABLE `golongan` (
   `aktif` char(1) DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `golongan`
@@ -167,7 +167,7 @@ CREATE TABLE `hak_penomoran` (
   `kode` varchar(32) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `hak_penomoran`
@@ -207,7 +207,7 @@ CREATE TABLE `identitas_publik` (
   `http_referer` varchar(124) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -254,7 +254,7 @@ CREATE TABLE `jabatan` (
   `single` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `jabatan`
@@ -297,7 +297,7 @@ CREATE TABLE `kode_beban_mak` (
   `nomor_kode` varchar(64) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `kode_beban_mak`
@@ -321,7 +321,7 @@ CREATE TABLE `kode_surat` (
   `keterangan` varchar(191) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `kode_surat`
@@ -442,10 +442,10 @@ CREATE TABLE `menus` (
   `menu_name` varchar(64) NOT NULL,
   `menu_link` varchar(100) NOT NULL,
   `sub` json DEFAULT NULL,
-  `menu_icon` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `menu_icon` text CHARACTER SET utf8mb4 COLLATE utf8_general_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `menus`
@@ -474,7 +474,7 @@ CREATE TABLE `nomor_surat_terakhir` (
   `nomor` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `nomor_surat_terakhir`
@@ -599,7 +599,7 @@ CREATE TABLE `roles` (
   `role_name` varchar(64) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `roles`
@@ -670,7 +670,7 @@ CREATE TABLE `surat_keluar_relation` (
   `relation_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -702,10 +702,10 @@ CREATE TABLE `surat_masuk` (
 
 CREATE TABLE `surat_terhapus` (
   `id` int NOT NULL,
-  `asal` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `tujuan` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `asal` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8_general_ci DEFAULT NULL,
+  `tujuan` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8_general_ci DEFAULT NULL,
   `perihal` varchar(191) NOT NULL,
-  `nomor_surat` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nomor_surat` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8_general_ci DEFAULT NULL,
   `ringkasan_isi` text NOT NULL,
   `tanggal_surat` date DEFAULT NULL,
   `tanggal_dikirim` date DEFAULT NULL,
@@ -713,7 +713,7 @@ CREATE TABLE `surat_terhapus` (
   `deleted_by` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -756,7 +756,7 @@ CREATE TABLE `template_surat` (
   `jenis_template` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `template_surat`
