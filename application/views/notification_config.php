@@ -6,9 +6,9 @@
     <section class="section">
       <div class="card">
         <div class="card-body">
-          <?php if ($this->session->flashdata('notif')) { ?>
+          <?php if ($this->session->flashdata('wa_res_notif')) { ?>
             <div class="alert alert-primary">
-              <i class="bi bi-info-circle-fill"></i> <?= $this->session->flashdata('notif')  ?>.<br>
+              <i class="bi bi-info-circle-fill"></i> <?= $this->session->flashdata('wa_res_notif')  ?>.<br>
             </div>
           <?php } ?>
 

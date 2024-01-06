@@ -10,6 +10,7 @@
 				<strong>
 					<?= $this->session->flashdata('notif') ?><br>
 					<?= $this->session->flashdata('notif_file') ?>
+					<?= $this->session->flashdata('wa_res_notif') ?>
 				</strong>
 			</div>
 		<?php } ?>
