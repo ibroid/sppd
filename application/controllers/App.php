@@ -13,6 +13,8 @@ class App extends CI_Controller
         if (auth()->check() == null) {
             redirect('auth');
         }
+
+        $this->load->database();
     }
     public function index()
     {
