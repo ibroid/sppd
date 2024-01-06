@@ -35,7 +35,7 @@
 				<div class="header-top">
 					<div class="container">
 						<div class="logo">
-							<a href="index.html"><img src="<?= base_url() ?>assets/ardi.png" height="200px" alt="Logo" srcset=""></a>
+							<a href="index.html"><img src="<?= base_url($_ENV["TITLE_IMAGE"]) ?>" height="200px" alt="Logo" srcset=""></a>
 						</div>
 						<div class="header-top-right">
 							<!--  -->

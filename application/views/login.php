@@ -23,7 +23,7 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth">
-                        <a href="index.html"><img src="<?= base_url('/') ?>assets/ardi.png" alt="Logo"></a>
+                        <a href="index.html"><img src="<?= base_url($_ENV["TITLE_IMAGE"]) ?>" alt="Logo"></a>
                     </div>
                     <?php if ($this->session->flashdata('notif')) { ?>
                         <div class="alert alert-info">
