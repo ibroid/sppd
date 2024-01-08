@@ -8,6 +8,7 @@ class Sppd extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->database();
         if (auth()->check() == null) {
             redirect('auth');
         }

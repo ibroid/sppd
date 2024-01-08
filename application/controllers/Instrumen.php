@@ -4,6 +4,14 @@ require_once APPPATH . 'models/MasterPegawai.php';
 require_once APPPATH . 'models/Instrumens.php';
 class Instrumen extends CI_Controller
 {
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+
     public function index()
     {
         if (isset($_POST['submit'])) {

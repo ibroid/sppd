@@ -9,6 +9,7 @@ class Penugasan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->database();
         if (auth()->check() == null) {
             redirect('auth');
         }

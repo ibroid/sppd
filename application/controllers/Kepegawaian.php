@@ -5,6 +5,12 @@ require_once APPPATH . "models/Jabatan.php";
 class Kepegawaian extends CI_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+
     public function index()
     {
         template('template', 'kepegawaian/pegawai', [
