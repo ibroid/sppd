@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Collection;
+
 include_once APPPATH . 'models/SuratKeluar.php';
 class Surat_keluar extends CI_Controller
 {
@@ -10,6 +13,8 @@ class Surat_keluar extends CI_Controller
     if (isset($_POST["id"])) {
       $this->surat_keluar = SuratKeluar::find(request("id"));
     }
+
+    $this->load->database();
   }
 
   public function cek_sub_nomor()
@@ -54,5 +59,104 @@ class Surat_keluar extends CI_Controller
     }
 
     redirect($_SERVER["HTTP_REFERER"]);
+  }
+
+  public function baru()
+  {
+    $tuj_surat = $this->db->query("SELECT DISTINCT(tujuan) as tujuan FROM surat_keluar")->result();
+    // print_r($asal_surat);
+    // die;
+    $suggest_tujuan_surat = [];
+
+    foreach ($tuj_surat as $key => $value) {
+      array_push($suggest_tujuan_surat, [
+        'label' => $value->tujuan,
+        'value' => $value->tujuan,
+      ]);
+    }
+
+    template('template', 'surat_keluar/surat_keluar_baru', [
+      'sug_tuj_surat' => $suggest_tujuan_surat
+    ]);
+  }
+
+  public function datatable_baru()
+  {
+    if (!must_post()) {
+      show_404();
+      exit;
+    }
+
+    $this->load->helper('element');
+    $this->load->model('SuratKeluarDatatable');
+    $lists = $this->SuratKeluarDatatable->get_datatables();
+
+    $this->render_datatable($lists);
+  }
+
+  public function datatable_klasifikasi($kode)
+  {
+    if (!must_post()) {
+      show_404();
+      exit;
+    }
+
+    $this->load->helper('element');
+    $this->load->model('SuratKeluarDatatable');
+
+    $this->SuratKeluarDatatable->klasifikasi = $kode;
+    $lists = $this->SuratKeluarDatatable->get_datatables();
+
+    $this->render_datatable($lists);
+  }
+
+  private function render_datatable($lists)
+  {
+    $data = array();
+    $no = $this->input->post('start');
+    foreach ($lists as $list) {
+      $no++;
+      $row = array();
+      $row[] = $no;
+      $row[] = $list->tujuan . '<br>Kode: ' . $list->kode_surat;
+      $row[] = checkNomorSurat($list) .  '<br>' . $this->checkSubNomor($list->nomor_surat);
+      $row[] = format_tanggal($list->tanggal_surat);
+      $row[] = $list->perihal . '<details>' . $list->ringkasan_isi . '</details>';
+      $row[] = format_tanggal($list->tanggal_dikirim) . '<br>Catatan : ' . $list->catatan;
+      $row[] = checkFileSuratKeluar($list);
+      $row[] = '<button onclick="editData(this)" data-json=\'' . json_encode($list, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '\' class="btn btn-warning  btn-sm">Edit</button><button onclick="deleteData(' . $list->id . ')" class="btn btn-danger btn-sm">Hapus</button>';
+      $data[] = $row;
+    }
+    $output = array(
+      "draw" => $this->input->post('draw'),
+      "recordsTotal" => $this->SuratKeluarDatatable->count_all(),
+      "recordsFiltered" => $this->SuratKeluarDatatable->count_filtered(),
+      "data" => $data,
+    );
+    header('Content-Type: application/json');
+    $this->output->set_output(json_encode($output));
+  }
+
+  private function checkSubNomor($nomor_surat)
+  {
+    if ($this->SuratKeluarDatatable->klasifikasi) {
+      return '<a target="_blank" href="' . base_url('/surat/sub_nomor/' . $nomor_surat) . '" class="btn btn-sm btn-dark">Sub Nomor</a>';
+    }
+  }
+
+  public function klasifikasi($kode = null)
+  {
+    $classify = collect([
+      ["kode" => "KPA", "name" => "Ketua"],
+      ["kode" => "WKPA", "name" => "Wakil Ketua"],
+      ["kode" => "SPA", "name" => "Sekretaris"],
+      ["kode" => "PPA", "name" => "Panitera"],
+    ]);
+
+    if ($classify->contains($kode)) {
+      $this->session->set_flashdata("notif", "Klasifikasi tidak ditemukan");
+      return redirect('/');
+    }
+    template('template', 'surat_keluar/surat_keluar_klasifikasi', $classify->where("kode", $kode)->first());
   }
 }

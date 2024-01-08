@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2024 at 06:13 PM
+-- Generation Time: Jan 08, 2024 at 11:25 PM
 -- Server version: 8.0.30
 -- PHP Version: 7.4.30
 
@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sppd`
@@ -33,7 +33,7 @@ CREATE TABLE `accessible_menu` (
   `menu_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `accessible_menu`
@@ -67,7 +67,8 @@ INSERT INTO `accessible_menu` (`id`, `role_id`, `menu_id`, `created_at`, `update
 (54, 6, 1, '2023-11-02 03:14:13', '2023-11-02 03:14:13'),
 (55, 6, 2, '2023-11-02 03:14:13', '2023-11-02 03:14:13'),
 (56, 6, 7, '2023-11-02 03:14:13', '2023-11-02 03:14:13'),
-(57, 6, 8, '2023-11-02 03:14:13', '2023-11-02 03:14:13');
+(57, 6, 8, '2023-11-02 03:14:13', '2023-11-02 03:14:13'),
+(58, 1, 10, '2024-01-08 13:28:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ CREATE TABLE `disposisi` (
   `isi_disposisi` text NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,17 @@ CREATE TABLE `disposisi_order` (
   `jabatan_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `disposisi_order`
+--
+
+INSERT INTO `disposisi_order` (`id`, `order_priority`, `jabatan_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2023-07-06 08:51:55', NULL),
+(2, 1, 2, '2023-07-06 08:52:01', NULL),
+(3, 1, 4, '2023-07-06 08:52:23', NULL),
+(4, 1, 5, '2023-07-06 08:52:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,7 +140,7 @@ CREATE TABLE `golongan` (
   `aktif` char(1) DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `golongan`
@@ -167,7 +178,7 @@ CREATE TABLE `hak_penomoran` (
   `kode` varchar(32) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `hak_penomoran`
@@ -207,7 +218,7 @@ CREATE TABLE `identitas_publik` (
   `http_referer` varchar(124) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -254,7 +265,7 @@ CREATE TABLE `jabatan` (
   `single` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `jabatan`
@@ -297,7 +308,7 @@ CREATE TABLE `kode_beban_mak` (
   `nomor_kode` varchar(64) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `kode_beban_mak`
@@ -321,7 +332,7 @@ CREATE TABLE `kode_surat` (
   `keterangan` varchar(191) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `kode_surat`
@@ -442,10 +453,10 @@ CREATE TABLE `menus` (
   `menu_name` varchar(64) NOT NULL,
   `menu_link` varchar(100) NOT NULL,
   `sub` json DEFAULT NULL,
-  `menu_icon` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `menu_icon` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `menus`
@@ -454,13 +465,14 @@ CREATE TABLE `menus` (
 INSERT INTO `menus` (`id`, `menu_name`, `menu_link`, `sub`, `menu_icon`, `created_at`, `updated_at`) VALUES
 (1, 'Home', '/', '{}', '<i class=\"bi bi-grid-fill\"></i>', '2022-10-23 17:33:36', NULL),
 (2, 'Instrumen', '#', '[{\"sub_link\": \"instrumen\", \"sub_name\": \"Buat Instrumen\"}, {\"sub_link\": \"instrumen/daftar\", \"sub_name\": \"Daftar Instrumen\"}]', '<i class=\"bi bi-bookmark-fill\"></i>', '2022-10-23 17:33:36', NULL),
-(3, 'Surat Tugas', '#', '[{\"sub_link\": \"penugasan\", \"sub_name\": \"Buat Surat Tugas\"}, {\"sub_link\": \"penugasan/daftar\", \"sub_name\": \"Daftar Surat Tugas\"}]', '<i class=\"bi bi-calendar3\"></i>', '2022-10-23 17:35:57', NULL),
+(3, 'ST', '#', '[{\"sub_link\": \"penugasan\", \"sub_name\": \"Buat Surat Tugas\"}, {\"sub_link\": \"penugasan/daftar\", \"sub_name\": \"Daftar Surat Tugas\"}]', '<i class=\"bi bi-calendar3\"></i>', '2022-10-23 17:35:57', NULL),
 (4, 'Penomoran', '#', '[{\"sub_link\": \"penomoran\", \"sub_name\": \"Penomoran Surat Keluar\"}, {\"sub_link\": \"penomoran/daftar\", \"sub_name\": \"Daftar Kode Surat\"}]', '<i class=\"bi bi-file-text\"></i>', '2022-10-23 17:35:57', NULL),
 (5, 'SPD', '#', '[{\"sub_link\": \"sppd\", \"sub_name\": \"Buat Surat Dinas\"}, {\"sub_link\": \"sppd/daftar\", \"sub_name\": \"Daftar Surat Dinas\"}]', '<i class=\"bi bi-calendar2\"></i>', '2022-10-23 17:38:22', NULL),
 (6, 'Keuangan', 'keuangan', '{}', '<i class=\"bi bi-file-ruled-fill\"></i>', '2022-10-23 17:38:22', NULL),
 (7, 'Kepegawaian', '#', '[{\"sub_link\": \"kepegawaian\", \"sub_name\": \"Pegawai\"}, {\"sub_link\": \"kepegawaian/plh\", \"sub_name\": \"Pejabat PLH\"}, {\"sub_link\": \"kepegawaian/jabatan\", \"sub_name\": \"Master Jabatan\"}]', '<i class=\"bi bi-people\"></i>', '2022-10-23 17:43:04', NULL),
-(8, 'Persuratan', '#', '[{\"sub_link\": \"surat/surat_masuk\", \"sub_name\": \"Surat Masuk\"}, {\"sub_link\": \"surat/surat_keluar\", \"sub_name\": \"Surat Keluar\"}, {\"sub_link\": \"surat/laporan\", \"sub_name\": \"Laporan\"}, {\"sub_link\": \"surat/generate\", \"sub_name\": \"Generate Surat\"}]', '<i class=\"bi bi-envelope-fill\"></i>', '2022-10-23 17:43:04', NULL),
-(9, 'Pengaturan', '#', '[{\"sub_link\": \"app/setting\", \"sub_name\": \"Umum\"}, {\"sub_link\": \"app/pengguna\", \"sub_name\": \"Pengguna\"}, {\"sub_link\": \"app/role\", \"sub_name\": \"Role\"}, {\"sub_link\": \"penomoran/hak_akses\", \"sub_name\": \"Hak Penomoran\"}, {\"sub_link\": \"penomoran/nomor_terakhir\", \"sub_name\": \"Nomor Terakhir\"}, {\"sub_link\": \"app/notification_config\", \"sub_name\": \"Notifikasi\"}]', '<i class=\"bi bi-gear\"></i>', '2022-10-23 17:44:17', NULL);
+(8, 'Outbox', '#', '[{\"sub_link\": \"surat_keluar/baru\", \"sub_name\": \"Surat Baru\"}, {\"sub_link\": \"surat_keluar/klasifikasi/KPA\", \"sub_name\": \"Surat Keluar KPA\"}, {\"sub_link\": \"surat_keluar/klasifikasi/WKPA\", \"sub_name\": \"Surat Keluar WKPA\"}, {\"sub_link\": \"surat_keluar/klasifikasi/SPA\", \"sub_name\": \"Surat Keluar SPA\"}, {\"sub_link\": \"surat_keluar/klasifikasi/PPA\", \"sub_name\": \"Surat Keluar PPA\"}, {\"sub_link\": \"surat/generate\", \"sub_name\": \"Generate Surat\"}, {\"sub_link\": \"surat/laporan\", \"sub_name\": \"Laporan\"}]', '<i class=\"bi bi-envelope-fill\"></i>', '2022-10-23 17:43:04', NULL),
+(9, 'Pengaturan', '#', '[{\"sub_link\": \"app/setting\", \"sub_name\": \"Umum\"}, {\"sub_link\": \"app/pengguna\", \"sub_name\": \"Pengguna\"}, {\"sub_link\": \"app/role\", \"sub_name\": \"Role\"}, {\"sub_link\": \"penomoran/hak_akses\", \"sub_name\": \"Hak Penomoran\"}, {\"sub_link\": \"penomoran/nomor_terakhir\", \"sub_name\": \"Nomor Terakhir\"}, {\"sub_link\": \"app/notification_config\", \"sub_name\": \"Notifikasi\"}]', '<i class=\"bi bi-gear\"></i>', '2022-10-23 17:44:17', NULL),
+(10, 'Inbox', '#', '[{\"sub_link\": \"surat/surat_masuk\", \"sub_name\": \"Daftar Surat\"}, {\"sub_link\": \"surat/laporan\", \"sub_name\": \"Laporan\"}]', '<i class=\"bi bi-envelope\"></i>', '2024-01-08 09:04:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -474,17 +486,17 @@ CREATE TABLE `nomor_surat_terakhir` (
   `nomor` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `nomor_surat_terakhir`
 --
 
 INSERT INTO `nomor_surat_terakhir` (`id`, `kode`, `nomor`, `created_at`, `updated_at`) VALUES
-(1, 'KPA', 113, '2024-01-04 14:31:46', '2024-01-05 11:20:37'),
+(1, 'KPA', 114, '2024-01-04 14:31:46', '2024-01-08 09:41:16'),
 (2, 'WKPA', 0, '2024-01-04 14:31:46', '2024-01-05 16:47:28'),
-(3, 'SPA', 0, '2024-01-04 14:33:39', '2024-01-04 14:33:39'),
-(4, 'PPA', 0, '2024-01-04 14:33:39', '2024-01-04 14:33:39');
+(3, 'SPA', 34, '2024-01-04 14:33:39', '2024-01-08 09:58:58'),
+(4, 'PPA', 39, '2024-01-04 14:33:39', '2024-01-08 10:12:44');
 
 -- --------------------------------------------------------
 
@@ -559,7 +571,7 @@ INSERT INTO `pengaturan` (`id`, `name`, `value`, `catatan`, `created_at`, `updat
 (18, 'logo_satker', '1689919368.png', '', '2022-02-07 03:13:37', '2023-07-21 06:02:48'),
 (19, 'plt_sekretaris', 'NIHIL', '', '2022-02-10 05:39:07', '2022-10-23 09:44:18'),
 (20, 'nip_plt_sekretaris', '1452', '', '2022-02-10 05:39:09', '2023-07-24 07:34:36'),
-(21, 'nrt_surat_masuk', '11', 'Nomor Register Terakhir dari Surat Masuk', NULL, '2024-01-05 08:46:44'),
+(21, 'nrt_surat_masuk', '20', 'Nomor Register Terakhir dari Surat Masuk', NULL, '2024-01-08 08:36:17'),
 (22, 'alamat_satker', 'Jl. Raya Plumpang Semper No.5, Tugu Selatan, Koja, Jakarta Utara', 'Alamat Satuan Kerja', NULL, NULL),
 (23, 'fax_satker', '021-43800421', 'Fax Satuan Kerja', NULL, NULL),
 (24, 'telp_satker', '021-43934701', 'Nomor Telepon Satuan Kerja', NULL, NULL),
@@ -567,7 +579,7 @@ INSERT INTO `pengaturan` (`id`, `name`, `value`, `catatan`, `created_at`, `updat
 (26, 'nrt_surat_keluar', '113', 'Nomor Register Terakhir Surat Keluar', NULL, '2024-01-04 07:41:47'),
 (28, 'web_satker', 'https://pa-jakartautara.go.id', '', NULL, NULL),
 (29, 'email_satker', 'pengadilanagama.jakut@gmail.com', '', NULL, NULL),
-(30, 'maintenance', '0', 'Untuk menampilkan peringatan maintenance', NULL, '2024-01-05 11:20:56'),
+(30, 'maintenance', '0', 'Untuk menampilkan peringatan maintenance', NULL, '2024-01-08 08:32:48'),
 (31, 'mobile_allowed_ip', '103.177.176.25', 'IP yang dibolehkan untuk akses aplikasi mobile\n1. ip kantor paju', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -599,7 +611,7 @@ CREATE TABLE `roles` (
   `role_name` varchar(64) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `roles`
@@ -670,7 +682,7 @@ CREATE TABLE `surat_keluar_relation` (
   `relation_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -702,10 +714,10 @@ CREATE TABLE `surat_masuk` (
 
 CREATE TABLE `surat_terhapus` (
   `id` int NOT NULL,
-  `asal` varchar(191) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `tujuan` varchar(191) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `asal` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tujuan` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `perihal` varchar(191) NOT NULL,
-  `nomor_surat` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nomor_surat` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `ringkasan_isi` text NOT NULL,
   `tanggal_surat` date DEFAULT NULL,
   `tanggal_dikirim` date DEFAULT NULL,
@@ -713,7 +725,7 @@ CREATE TABLE `surat_terhapus` (
   `deleted_by` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -734,14 +746,6 @@ CREATE TABLE `surat_tugas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `surat_tugas`
---
-
-INSERT INTO `surat_tugas` (`id`, `perihal`, `menimbang`, `dasar_hukum`, `tujuan`, `tugas`, `nomor_surat`, `tanggal_surat`, `created_at`, `updated_at`) VALUES
-(113, 'Sidang Keliling tanggal 3 s.d 4 Agustus 2023', 'Sehubungan dengan pelaksanaan Sidang Keliling pada wilayah hukum Pengadilan Agama Jakarta Utara serta dalam rangka memberikan pelayanan prima kepada masyarakat, dengan ini kami menugaskan yang nama-namanya tercantum dibawah ini.', 'Surat Keputusan Ketua Pengadilan Agama Jakarta Utara Nomor : W9-A5/155/HK.05/SK/7/2023 tanggal 28 Juli 2023 tentang Tim Sidang Keliling Pengadilan Agama Jakarta Utara Di Kabupaten Administrasi Kepulauan Seribu Tahun Anggaran 2023.', 'Pulau Pramuka, Kabupaten Administrasi Kepulauan Seribu, Kota Jakarta Utara, DKI Jakarta', 'Melaksanakan Sidang Keliling di Pulau Pramuka Kabupaten Administrasi Kepulauan Seribu Provinsi DKI Jakarta  yang akan dilaksanakan pada :\r\nHari Kamis s.d Jum’at, tanggal 3 s.d 4 Agustus 2023 Pukul 06.00 WIB s.d Selesai.\r\n', 'W9-A5/3164/HK.05/7/2023', '2023-07-31', '2023-07-31 02:56:11', '2023-07-31 03:10:52'),
-(120, 'Kegiatan Pelayanan Terpadu Keliling (PTK)', 'Sehubungan dengan pelaksanaan Kegiatan Pelayanan Terpadu Keliling sebagai Solusi Pelayanan Publik Terapung (SI PITUNG) Tahun Anggaran 2023, dengan ini kami menugaskan pegawai yang namanya tercantum dalam surat tugas ini.', 'Surat Kepala Unit Pengelola Penanaman Modal dan Pelayanan Terpadu Satu Pintu Kabupaten Administrasi Kepulauan Seribu Nomor : 423/TM.03.1 tanggal 31 Juli 2023 perihal Undangan.', 'Pulau Sabira, Kelurahan Pulau Harapan, Kepulauan Seribu', 'Kegiatan Pelayanan Terpadu Keliling ', 'W9-A5/3200/HK.05/8/2023', '2023-08-01', '2023-08-01 10:13:05', '2023-08-01 10:13:39');
-
 -- --------------------------------------------------------
 
 --
@@ -756,7 +760,7 @@ CREATE TABLE `template_surat` (
   `jenis_template` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `template_surat`
@@ -787,7 +791,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `pegawai_id`, `role_id`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$10$vfgOzt97CTFgypNbFFwSKe6A0M0QKkgUb4LA0TKppcbR6sipkuXVK', 1, 1, '2022-01-31 01:40:54', '2023-07-29 16:14:26'),
-(8, 'surat', '$2y$10$zRJ781PxkFdkBHCnkLo9Ce2LTS8cxYe1QonW6DaIrmir0/cUlV3mu', 2, 4, '2022-10-25 08:15:29', '2023-07-24 06:51:27'),
+(8, 'surat', '$2y$10$v6tUqsoP1W.uIfktyLy7rulF7Hwiruw3nZI9CLZZNbbbuabjzQ6cu', 2, 4, '2022-10-25 08:15:29', '2024-01-08 04:56:20'),
 (9, 'tabayun', '$2y$10$F20loR.qj38xWxCfCAo80euJs1JconZYcwtWV1/Mn8PoT7GZKUKgm', 49, 5, '2023-07-31 02:44:42', '2023-07-31 02:45:40'),
 (10, 'panitera', '$2y$10$.YVeXyybFs8IkytiNVosmeADwztcQzgW0YjX2cRzyg7vApnP2nTmy', 6, 6, '2023-11-02 03:15:27', '2023-11-02 03:15:27');
 
@@ -971,7 +975,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accessible_menu`
 --
 ALTER TABLE `accessible_menu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `biaya`
@@ -989,7 +993,7 @@ ALTER TABLE `disposisi`
 -- AUTO_INCREMENT for table `disposisi_order`
 --
 ALTER TABLE `disposisi_order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `golongan`
@@ -1049,7 +1053,7 @@ ALTER TABLE `master_pegawai`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `nomor_surat_terakhir`
@@ -1121,7 +1125,7 @@ ALTER TABLE `surat_terhapus`
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `template_surat`

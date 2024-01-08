@@ -21,6 +21,7 @@ class Surat extends CI_Controller
         if (isset($_POST['awal']) && isset($_POST['akhir'])) {
             $this->session->set_userdata('awal_periode', request('awal'));
             $this->session->set_userdata('akhir_periode', request('akhir'));
+            redirect($_SERVER["HTTP_REFERER"]);
         }
 
         $this->load->database();
@@ -389,7 +390,7 @@ class Surat extends CI_Controller
         if (isset($_GET['reset'])) {
             $this->session->unset_userdata('awal_periode');
             $this->session->unset_userdata('akhir_periode');
-            redirect('/surat/surat_keluar');
+            redirect($_SERVER["HTTP_REFERER"]);
         }
 
         // print_r($this->session->userdata('awal_periode'));
@@ -453,7 +454,7 @@ class Surat extends CI_Controller
             $this->session->set_flashdata('notif', $th->getMessage());
         }
 
-        redirect('surat/surat_keluar');
+        redirect('surat_keluar/baru');
     }
 
     public function datatable_surat_keluar()
@@ -548,7 +549,7 @@ class Surat extends CI_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             } else {
 
-                redirect('/surat/surat_keluar');
+                redirect($_SERVER["HTTP_REFERER"]);
             }
         }
     }

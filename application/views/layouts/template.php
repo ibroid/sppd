@@ -18,14 +18,14 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/vendors/bootstrap-icons/bootstrap-icons.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/app.css">
 
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="<?= base_url() ?>assets/vendors/simple-datatables/style.css">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
-	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script src="<?= base_url('assets/vendors/sweetalert2/sweetalert2.all.min.js') ?>"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <body>
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 				<nav class="main-navbar">
-					<div class="container">
+					<div class="container-fluid container">
 						<ul>
 							<?php foreach (accessible_menu() as $km => $vm) { ?>
 								<li class="menu-item <?= empty(json_decode($vm->sub, true))  ? '' : 'has-sub' ?>">
@@ -112,6 +112,12 @@
 	<script src="<?= base_url() ?>assets/js/bootstrap.bundle.min.js"></script>
 	<script src="<?= base_url() ?>assets/js/pages/horizontal-layout.js"></script>
 	<script src="<?= base_url() ?>assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+	<script src="<?= base_url('assets/js/autocomplete.js') ?>"></script>
+	<script>
+		$(".datepicker").flatpickr({});
+	</script>
 
 </body>
 

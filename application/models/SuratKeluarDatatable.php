@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
 class SuratKeluarDatatable extends CI_Model
 {
     //set nama tabel yang akan kita tampilkan datanya
@@ -10,7 +11,9 @@ class SuratKeluarDatatable extends CI_Model
 
     var $column_search = array('nomor_surat', 'tujuan', 'tanggal_surat', 'kode_surat', 'tanggal_dikirim', 'perihal', 'ringkasan_isi');
     // default order 
-    var $order = array('id' => 'desc');
+    var $order = array('CAST(nomor_surat AS SIGNED)' => 'desc');
+
+    public $klasifikasi = null;
 
     public function __construct()
     {
@@ -26,9 +29,14 @@ class SuratKeluarDatatable extends CI_Model
             $this->db->where('MONTH(tanggal_surat)', date("m"), TRUE);
             $this->db->where('YEAR(tanggal_surat)', date("Y"), TRUE);
         }
-        $this->db->where('nomor_surat NOT LIKE', '%.%', TRUE);
-        $this->db->or_where('nomor_surat IS NULL', null, FALSE);
-        // $this->db->order_by('nomor_surat', "DESC");
+        if ($this->klasifikasi == null) {
+            $this->db->where('nomor_surat IS NULL', null, FALSE);
+        } else {
+            $this->db->where('nomor_surat NOT LIKE', '%.%', TRUE);
+            $this->db->where('klasifikasi_surat', $this->klasifikasi, TRUE);
+        }
+
+        // $this->db->order_by('CAST(nomor_surat AS SIGNED)', "DESC");
         $this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop kolom 
