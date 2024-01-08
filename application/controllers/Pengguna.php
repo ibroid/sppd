@@ -63,6 +63,7 @@ class Pengguna extends CI_Controller
                 $user = User::find(request('id'));
             }
             $user->username = request('username');
+            $user->pegawai_id = request('pegawai_id');
             if (request('password') != null) {
                 $user->password = password_hash(request('password'), PASSWORD_BCRYPT);
             }

@@ -41,7 +41,7 @@
 									<?php foreach ($menu as $km => $vm) { ?>
 										<td><?= check_access($vm->id, $uv->role->menu) ?></td>
 									<?php } ?>
-									<td><button onclick="editUser(this)" data-username="<?= $uv->username ?>" data-id="<?= $uv->id ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></button></td>
+									<td><button data-pegawai="<?= $uv->pegawai->nama ?>" onclick="editUser(this)" data-username="<?= $uv->username ?>" data-id="<?= $uv->id ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></button></td>
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -188,6 +188,20 @@
 								</div>
 							</div>
 							<div class="col-md-2">
+								<label>Pegawai</label>
+							</div>
+							<div class="col-md-10">
+								<div class="form-group has-icon-left">
+									<div class="position-relative">
+										<input id="edit-input-hidden-pegawai" type="hidden" name="pegawai_id">
+										<input id="edit-input-pegawai" type="text" class="form-control" placeholder="Tulis Nama Pegawai" required>
+										<div class="form-control-icon">
+											<i class="bi bi-person"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
 							</div>
 							<div class="col-md-10">
 								<div class="alert alert-warning">
@@ -218,6 +232,7 @@
 		}
 		$('#input-hidden-id').val(el.dataset.id)
 		$('#input-username').val(el.dataset.username)
+		$('#edit-input-pegawai').val(el.dataset.pegawai)
 		globalModal.show()
 	}
 
@@ -276,6 +291,18 @@
 			}) => {
 				console.log(value, label)
 				document.getElementById('input-hidden-pegawai').value = value
+			}
+		});
+
+		const acs = new Autocomplete(document.getElementById('edit-input-pegawai'), {
+			data: JSON.parse('<?= $pegawai ?>'),
+			maximumItems: 5,
+			onSelectItem: ({
+				label,
+				value
+			}) => {
+				console.log(value, label)
+				document.getElementById('edit-input-hidden-pegawai').value = value
 			}
 		});
 
