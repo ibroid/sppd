@@ -26,7 +26,7 @@ class App extends CI_Controller
         $data['instrumen'] = $this->db->query("SELECT COUNT(*) as total FROM instrumen")->row();
         $data['spd'] = $this->db->query("SELECT COUNT(*) as total FROM surat_tugas")->row();
         $data['surat_tanpa_nomor'] = $this->db->query("SELECT * FROM surat_keluar WHERE nomor_surat IS NULL")->result();
-        $data['disposisi_tengah_jalan'] = $this->db->query("select * from surat_masuk as a where (select count(*) from disposisi where surat_masuk_id = a.id) >= 2;")->result();
+        $data['disposisi_tengah_jalan'] = $this->db->query("SELECT * FROM surat_masuk AS a WHERE (SELECT COUNT(*) FROM disposisi WHERE surat_masuk_id = a.id) >= 2 AND MONTH(a.tanggal_surat) =  " . date("m"))->result();
         // echo '<pre>';
         // print_r($data['instrumens']);
         template('template', 'home', $data);

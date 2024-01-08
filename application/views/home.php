@@ -169,6 +169,11 @@
 						<div class="card">
 							<div class="card-header">
 								<h4>Disposisi Tengah Jalan</h4>
+								<ol>
+									<?php foreach ($disposisi_tengah_jalan as $dpk) { ?>
+										<li><?= $dpk->asal ?></li>
+									<?php } ?>
+								</ol>
 							</div>
 							<div class="card-body">
 								<div>
