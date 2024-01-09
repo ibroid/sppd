@@ -166,7 +166,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="card">
+						<!-- <div class="card">
 							<div class="card-header">
 								<h4>Disposisi Tengah Jalan</h4>
 								<ol>
@@ -180,7 +180,7 @@
 									<canvas id="myChart"></canvas>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

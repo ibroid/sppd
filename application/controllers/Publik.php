@@ -86,7 +86,7 @@ class Publik extends CI_Controller
 
         $config['upload_path'] = './hasil/surat_masuk/';
         $config['allowed_types'] = 'jpeg|jpg|png|docx|doc|pdf';
-        $config['max_size']  = '2048';
+        $config['max_size']  = '8048';
         $config['file_name']  = time();
 
         $this->load->library('upload', $config);

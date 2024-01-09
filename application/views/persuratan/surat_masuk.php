@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
 
-<div class="content-wrapper container-fluid">
+<div class="content-wrapper container">
 	<div class="page-heading">
 		<h3>Kelola Surat Masuk</h3>
 	</div>
@@ -40,20 +40,19 @@
 
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<h6>Cari Berdasarkan Periode Tanggal Diterima</h6>
-						<form action="<?= base_url('surat/surat_masuk') ?>" method="POST">
+						<form action="/surat/surat_masuk" method="POST">
 							<div class="row">
-								<div class="col-md-3">
-									<div class="input-group mb-3">
-										<input type="date" class="form-control" name="awal">
-										<input type="date" class="form-control" name="akhir">
+								<div class="col-md-6">
+									<label for="">Cari Berdasarkan Periode Tanggal Dikirim</label>
+									<div class="input-group mb-4">
+										<input type="text" class="form-control datepicker" name="awal">
+										<input type="text" class="form-control datepicker" name="akhir">
 										<button class="btn btn-primary" type="submit" id="button-addon2">Cari</button>
-										<a class="btn btn-outline-danger" href="<?= base_url('/surat/surat_masuk') ?>" id="button-addon2">reset</a>
+										<a class="btn btn-outline-danger" href="<?= base_url('/surat/surat_masuk?reset=1') ?>" id="button-addon2">reset</a>
 									</div>
 								</div>
 							</div>
 						</form>
-						<p class="my-2">
 						<h6>Tabel Surat Masuk</h6>
 						<table id="tableSuratMasuk" class="table table-bordered table-hover">
 							<thead>

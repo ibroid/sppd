@@ -18,11 +18,6 @@ class Surat extends CI_Controller
         if (auth()->check() == null) {
             redirect('auth');
         }
-        if (isset($_POST['awal']) && isset($_POST['akhir'])) {
-            $this->session->set_userdata('awal_periode', request('awal'));
-            $this->session->set_userdata('akhir_periode', request('akhir'));
-            redirect($_SERVER["HTTP_REFERER"]);
-        }
 
         $this->load->database();
     }
@@ -32,6 +27,17 @@ class Surat extends CI_Controller
     }
     public function surat_masuk()
     {
+        if (isset($_POST['awal']) && isset($_POST['akhir'])) {
+            $this->session->set_userdata('sm_awal_periode', request('awal'));
+            $this->session->set_userdata('sm_akhir_periode', request('akhir'));
+        }
+
+
+        if (isset($_GET['reset'])) {
+            $this->session->unset_userdata('sm_awal_periode');
+            $this->session->unset_userdata('sm_akhir_periode');
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
 
         $asal_surat = $this->db->query("SELECT DISTINCT(asal) as asal FROM surat_masuk")->result();
         $pegawai = $this->db->query("SELECT nama,id FROM master_pegawai")->result();

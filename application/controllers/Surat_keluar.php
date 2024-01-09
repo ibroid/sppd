@@ -146,6 +146,17 @@ class Surat_keluar extends CI_Controller
 
   public function klasifikasi($kode = null)
   {
+    if (isset($_POST['awal']) && isset($_POST['akhir'])) {
+      $this->session->set_userdata('awal_periode', request('awal'));
+      $this->session->set_userdata('akhir_periode', request('akhir'));
+    }
+
+    if (isset($_GET['reset'])) {
+      $this->session->unset_userdata('awal_periode');
+      $this->session->unset_userdata('akhir_periode');
+      redirect($_SERVER["HTTP_REFERER"]);
+    }
+
     $classify = collect([
       ["kode" => "KPA", "name" => "Ketua"],
       ["kode" => "WKPA", "name" => "Wakil Ketua"],

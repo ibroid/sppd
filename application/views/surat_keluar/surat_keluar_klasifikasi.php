@@ -25,7 +25,7 @@
 
       <div class="card-body">
         <br>
-        <form action="<?= base_url('surat/surat_keluar') ?>" method="POST">
+        <form action="<?= base_url('surat_keluar/klasifikasi/' . $kode) ?>" method="POST">
           <div class="row">
             <div class="col-md-6">
               <label for="">Cari Berdasarkan Periode Tanggal Dikirim</label>

@@ -19,9 +19,11 @@ class SuratMasukDatatable extends CI_Model
 
     private function _get_datatables_query()
     {
-        if ($this->session->flashdata('awal_periode') && $this->session->flashdata('akhir_periode')) {
-            $this->db->where('tanggal_diterima >=', $this->session->flashdata('awal_periode'));
-            $this->db->where('tanggal_diterima <=', $this->session->flashdata('akhir_periode'));
+        if ($this->session->userdata('sm_awal_periode') && $this->session->userdata('sm_akhir_periode')) {
+            $this->db->where('tanggal_diterima >=', $this->session->userdata('sm_awal_periode'));
+            $this->db->where('tanggal_diterima <=', $this->session->userdata('sm_akhir_periode'));
+        } else {
+            $this->db->where('YEAR(tanggal_diterima) = ', date("Y"), false);
         }
         $this->db->from($this->table);
         $i = 0;
