@@ -21,6 +21,12 @@ class DisposisiDatatable extends CI_Model
     {
         $this->db->select('disposisi.*,nomor_surat,asal,tanggal_surat,kode_surat,tanggal_diterima,perihal,nomor_agenda,isi_disposisi,nama')
             ->join('surat_masuk', 'surat_masuk.id = disposisi.surat_masuk_id', 'left')->join('master_pegawai', 'master_pegawai.id = disposisi.pegawai_id', 'left');
+        if ($this->session->userdata('sm_awal_periode') && $this->session->userdata('sm_akhir_periode')) {
+            $this->db->where('tanggal_diterima >=', $this->session->userdata('sm_awal_periode'));
+            $this->db->where('tanggal_diterima <=', $this->session->userdata('sm_akhir_periode'));
+        } else {
+            $this->db->where('YEAR(tanggal_diterima) = ', date("Y"), false);
+        }
         $this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop kolom 
