@@ -41,7 +41,7 @@
 									<?php foreach ($menu as $km => $vm) { ?>
 										<td><?= check_access($vm->id, $uv->role->menu) ?></td>
 									<?php } ?>
-									<td><button data-pegawai="<?= $uv->pegawai->nama ?>" onclick="editUser(this)" data-username="<?= $uv->username ?>" data-id="<?= $uv->id ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></button></td>
+									<td><button data-pegawai-id="<?= $uv->pegawai->id ?>" data-pegawai="<?= $uv->pegawai->nama ?>" onclick="editUser(this)" data-username="<?= $uv->username ?>" data-id="<?= $uv->id ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></button></td>
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -233,6 +233,7 @@
 		$('#input-hidden-id').val(el.dataset.id)
 		$('#input-username').val(el.dataset.username)
 		$('#edit-input-pegawai').val(el.dataset.pegawai)
+		$('#edit-input-hidden-pegawai').val(el.dataset.pegawaiId)
 		globalModal.show()
 	}
 
