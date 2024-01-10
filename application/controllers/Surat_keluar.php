@@ -162,6 +162,7 @@ class Surat_keluar extends CI_Controller
       ["kode" => "WKPA", "name" => "Wakil Ketua"],
       ["kode" => "SPA", "name" => "Sekretaris"],
       ["kode" => "PPA", "name" => "Panitera"],
+      ["kode" => "SK", "name" => "Surat Keputusan"],
     ]);
 
     if ($classify->contains($kode)) {
