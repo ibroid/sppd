@@ -1,4 +1,4 @@
-<div class="content-wrapper container-fluid">
+<div class="content-wrapper container">
 	<div class="page-heading">
 		<h3>Menu Pegawai</h3>
 	</div>
@@ -22,8 +22,8 @@
 						<table>
 							<tr>
 								<th width="400px"><input id="nama" required type="text" name="nama" class="form-control" placeholder="Masukan Nama .."></th>
-								<th width="400px"><input id="nip" required type="number" name="nip" class="form-control" placeholder="Masukan NIP .."></th>
-								<th width="200px">
+								<th width="300px"><input id="nip" required type="number" name="nip" class="form-control" placeholder="Masukan NIP .."></th>
+								<th width="300px">
 									<select name="jabatan_id" id="jabatan" class="form-control">
 										<option selected disabled value="">Pilih Jabatan ..</option>
 										<?php foreach ($jabatan as $j) { ?>
@@ -31,7 +31,7 @@
 										<?php } ?>
 									</select>
 								</th>
-								<th width="200px">
+								<th width="300px">
 									<select name="golongan_id" id="golongan" class="form-control">
 										<option selected disabled value="">Pilih Golongan ..</option>
 										<?php foreach ($golongan as $gs) { ?>
@@ -39,7 +39,7 @@
 										<?php } ?>
 									</select>
 								</th>
-								<th width="400px"><input id="nomor_telepon" required type="number" name="nomor_telepon" class="form-control" placeholder="Nomor Telepon. Awali dengan 62 (62812XX)"></th>
+								<th width="300px"><input id="nomor_telepon" required type="number" name="nomor_telepon" class="form-control" placeholder="No Wa. Diawali 62 (62812XX)"></th>
 								<th width="200px"><button class="btn btn-success btn-block">Simpan</button></th>
 							</tr>
 						</table>
