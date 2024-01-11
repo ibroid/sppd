@@ -1,4 +1,4 @@
-<div class="content-wrapper container-fluid">
+<div class="content-wrapper container">
 	<div class="page-content">
 		<?php if ($this->session->flashdata('notif')) { ?>
 			<div class="alert alert-success d-flex align-items-center" role="alert">

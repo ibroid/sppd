@@ -3,6 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 include_once APPPATH . 'models/SuratMasuk.php';
 include_once APPPATH . 'models/IdentitasPublik.php';
+include_once APPPATH . 'models/Users.php';
 
 class Publik extends CI_Controller
 {
@@ -172,12 +173,15 @@ class Publik extends CI_Controller
                 'file' => $filename
             ]);
 
-            $wanotif = new Wanotif([
-                'number' => "6281287285608",
-                'text' => "*Notifikasi Surat Masuk.* Surat masuk dari $model->asal. Nomor surat $model->nomor_surat. Perihal $model->perihal. Silahkan buat disposisi anda dengan menekan link ini: " . base_url('/mobile/redirect?page=surat_masuk&id=' . $model->id),
-            ]);
+            $petugasSurat = User::where("role_id", 4)->first();
+            if ($petugasSurat) {
+                $wanotif = new Wanotif([
+                    'number' => $petugasSurat->pegawai->nomor_telepon,
+                    'text' => "*Notifikasi Surat Masuk.* Surat masuk dari $model->asal. Nomor surat $model->nomor_surat. Perihal $model->perihal. Silahkan buat disposisi anda dengan menekan link ini: " . base_url('/mobile/redirect?page=surat_masuk&id=' . $model->id),
+                ]);
 
-            $wanotif->send();
+                $wanotif->send();
+            }
 
             IdentitasPublik::where("id", $this->session->userdata('id_iden_publik'))->update(['surat_masuk_id' => $model->id]);
 
