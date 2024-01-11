@@ -10,6 +10,10 @@ class Surat_keluar extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    if (auth()->check() == null) {
+      redirect('auth');
+    }
+
     if (isset($_POST["id"])) {
       $this->surat_keluar = SuratKeluar::find(request("id"));
     }
