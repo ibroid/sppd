@@ -15,28 +15,28 @@ class Mobile extends CI_Controller
                 throw new Exception("Your country is not allowed", 1);
             }
 
-            $allowedIP = pengaturan()->mobile_allowed_ip;
-            if (str_contains($allowedIP, ";")) {
-                $allowedIPs = explode(";", $allowedIP);
-                // print_r($allowedIPs);
-                $checks = [];
+            // $allowedIP = pengaturan()->mobile_allowed_ip;
+            // if (str_contains($allowedIP, ";")) {
+            //     $allowedIPs = explode(";", $allowedIP);
+            //     // print_r($allowedIPs);
+            //     $checks = [];
 
-                foreach ($allowedIPs as $k => $ip) {
-                    if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $ip) {
-                        $checks[$k] = true;
-                    }
-                }
+            //     foreach ($allowedIPs as $k => $ip) {
+            //         if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $ip) {
+            //             $checks[$k] = true;
+            //         }
+            //     }
 
-                if (empty($checks)) {
-                    throw new Exception("Your ip is not allows. Please contact web administrator", 1);
-                }
-            } else {
-                if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $allowedIP) {
-                    set_status_header(400);
-                    echo "Your ip is not allowed. Please contact web administrator";
-                    exit();
-                }
-            }
+            //     if (empty($checks)) {
+            //         throw new Exception("Your ip is not allows. Please contact web administrator", 1);
+            //     }
+            // } else {
+            //     if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $allowedIP) {
+            //         set_status_header(400);
+            //         echo "Your ip is not allowed. Please contact web administrator";
+            //         exit();
+            //     }
+            // }
         } catch (\Throwable $th) {
             set_status_header(400);
             exit($th->getMessage());
