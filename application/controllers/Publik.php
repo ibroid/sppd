@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 include_once APPPATH . 'models/SuratMasuk.php';
 include_once APPPATH . 'models/IdentitasPublik.php';
-include_once APPPATH . 'models/Users.php';
+include_once APPPATH . 'models/User.php';
 
 class Publik extends CI_Controller
 {
