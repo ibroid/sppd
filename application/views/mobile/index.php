@@ -12,9 +12,6 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.3.6/dist/vuetify.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.css" />
-	<title>ARDI Mobile</title>
 	<style>
 		body {
 			width: 100%;
@@ -22,6 +19,9 @@
 			margin: 0 auto;
 		}
 	</style>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.3.6/dist/vuetify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.css" />
+	<title>ARDI Mobile</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 
 		<v-app id="inspire">
 			<v-app-bar color="primary" density="compact">
-				<v-app-bar-title>ARDI Mobile</v-app-bar-title>
+				<v-app-bar-title>Mobile View</v-app-bar-title>
 			</v-app-bar>
 
 			<v-main>
