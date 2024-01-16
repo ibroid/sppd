@@ -167,14 +167,21 @@ class Penomoran extends CI_Controller
             'data' => KodeSurat::all()
         ]);
     }
-    public function save_kode()
+    public function save_kode($id = null)
     {
         if ($this->input->method() == 'post') {
             try {
-                KodeSurat::insert([
-                    'kode_surat' => request('kode_surat'),
-                    'keterangan' => request('keterangan')
-                ]);
+                if ($id) {
+                    KodeSurat::where("id", $id)->update([
+                        'kode_surat' => request('kode_surat'),
+                        'keterangan' => request('keterangan')
+                    ]);
+                } else {
+                    KodeSurat::insert([
+                        'kode_surat' => request('kode_surat'),
+                        'keterangan' => request('keterangan')
+                    ]);
+                }
                 $this->session->set_flashdata('notif', 'Berhasil Ditambahkan');
             } catch (\Throwable $th) {
                 $this->session->set_flashdata('notif', 'Terjadi Kesalahan. ' . $th->getMessage());

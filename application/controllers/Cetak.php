@@ -226,51 +226,52 @@ class Cetak extends CI_Controller
     public function disposisi($id = null)
     {
         if ($id == null) {
-            show_404();
-            exit;
+            http_response_code(404);
+            exit();
         }
+        $data = Disposisi::where('id', $id)->get();
 
-        $data = Disposisi::find($id);
-
+        // prindie($data);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(FCPATH . 'template/template_disposisi.docx');
-        // echo '<pre>';
-        // print_r($templateProcessor->getVariableCount());
-        // die;
-        $templateProcessor->setImageValue('logo', [
+
+        $templateProcessor->setImageValue('LOGO', [
             'path' => './logo/' . pengaturan()->logo_satker,
             'width' => 50, 'height' => 50, 'ratio' => false
         ]);
+        $templateProcessor->setValue("NAMA_SATKER", pengaturan()->nama_satker);
+
+        $templateProcessor->cloneBlock('BLOK_DISPOSISI', count($data), true, true);
+        $templateProcessor->cloneBlock('BLOK_CATATAN',  count($data), true, true);
+        // $templateProcessor->cloneRow('disposisi_lanjutan', count($data) - 1);
+        // $templateProcessor->cloneRow('disposisi_pertama', count($data) - 1);
+
+        // $templateProcessor->setValue('disposisi_pertama#1', 'Yth. ' . $data[0]->pegawai->jabatan->nama_jabatan . '. ' . $data[0]->isi_disposisi);
+
+        $no = 1;
+        foreach ($data as $i => $v) {
+            if ($v->pegawai->jabatan_id != 1) {
+                $templateProcessor->setValue("CATATAN_DISPOSISI#$no", "$no. -" . $v->isi_disposisi);
+                $templateProcessor->setValue("TUJUAN_DISPOSISI#$no", "$no. Yth. " . $v->pegawai->jabatan->nama_jabatan);
+            }
+            $no++;
+        }
+
         $templateProcessor->setValues([
-            'kode_surat' => $data->surat_masuk->kode_surat,
-            'tanggal_surat' => format_tanggal($data->surat_masuk->tanggal_surat),
-            'nomor_surat' => $data->surat_masuk->nomor_surat,
-            'asal_surat' => $data->surat_masuk->asal,
-            'isi_ringkas' => $data->surat_masuk->ringkasan_isi,
-            'tanggal_diterima' => format_tanggal($data->surat_masuk->tanggal_diterima),
-            'no_ag' => $data->nomor_agenda,
-            'nama_pegawai' => $data->pegawai->nama,
-            'isi_disposisi' => $data->isi_disposisi,
-            'nama_ketua' => pengaturan()->nama_ketua,
-            'nip_ketua' => pengaturan()->nip_ketua,
+            'KODE_SURAT' => $data[0]->surat_masuk->kode_surat,
+            'TANGGAL_SURAT' => format_tanggal($data[0]->surat_masuk->tanggal_surat),
+            'NOMOR_SURAT' => $data[0]->surat_masuk->nomor_surat,
+            'ASAL_SURAT' => $data[0]->surat_masuk->asal,
+            'PERIHAL_SURAT' => $data[0]->surat_masuk->perihal,
+            'TANGGAL_DITERIMA' => format_tanggal($data[0]->surat_masuk->tanggal_diterima),
+            'NOMOR_AGENDA' => $data[0]->nomor_agenda,
+            // 'nama_pegawai' => $data[0]->pegawai->nama,
+            // 'nama_ketua' => pengaturan()->nama_ketua,
+            // 'nip_ketua' => pengaturan()->nip_ketua,
         ]);
 
         $filename = time() . '.docx';
         $templateProcessor->saveAs(FCPATH . 'hasil/' . $filename);
 
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        header('Content-Disposition: attachment; filename=disposisi_surat' . $data->surat_masuk->asal . '.docx');
-        header('Content-Transfer-Encoding: binary');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize('./hasil/' . $filename));
-
-        ob_clean();
-        flush();
-
-        readfile('./hasil/' . $filename);
-        unlink('./hasil/' . $filename);
-        exit();
+        download_hasil('disposisi', $filename);
     }
 }

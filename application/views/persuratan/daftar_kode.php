@@ -17,16 +17,19 @@
                 <h5 class="card-title">Tabel</h5>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('/penomoran/save_kode') ?>" method="POST">
+                <form id="form-kode-surat" action="<?= base_url('/penomoran/save_kode') ?>" method="POST">
                     <div class="row">
                         <div class="col-md-2">
-                            <input required type="text" name="kode_surat" placeholder="Kode Surat" class="form-control">
+                            <input required type="text" id="input-kode-surat" name="kode_surat" placeholder="Kode Surat" class="form-control">
                         </div>
                         <div class="col-md">
                             <textarea required placeholder="Keterangan Kode Surat" name="keterangan" id="textarea-keterangan" class="form-control" rows="1"></textarea>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-success">Simpan Data</button>
+                            <div class="d-flex">
+                                <button class="btn btn-success">Simpan</button>
+                                <button onclick="$('#form-kode-surat').attr('<?= base_url('/penomoran/save_kode') ?>')" type="reset" class="btn btn-danger">Reset</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -46,7 +49,7 @@
                                 <td><?= ++$key ?></td>
                                 <td><?= $value->kode_surat ?></td>
                                 <td><?= $value->keterangan ?></td>
-                                <td><button onclick="hapus(<?= $value->id ?>)" class="btn btn-sm btn-danger">Hapus</button></td>
+                                <td><button onclick='fetch_edit(<?= $value ?>)' class="btn btn-sm btn-warning">Ubah</button><button onclick="hapus(<?= $value->id ?>)" class="btn btn-sm btn-danger">Hapus</button></td>
                             </tr>
                         <?php } ?>
 
@@ -58,6 +61,13 @@
 </div>
 
 <script>
+    const fetch_edit = (data) => {
+        $("#input-kode-surat").val(data.kode_surat)
+        $("#textarea-keterangan").val(data.keterangan)
+        $("#form-kode-surat").attr("action", "<?= base_url('/penomoran/save_kode') ?>/" + data.id)
+        window.scrollTo(0, 0);
+    }
+
     const hapus = async (id) => {
         const dec = await Swal.fire({
             title: "Apa anda yakin ?",

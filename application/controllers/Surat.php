@@ -567,21 +567,33 @@ class Surat extends CI_Controller
     }
     public function generate_laporan()
     {
+        $bulan = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember",
+        ];
         $dataSurat = null;
         if (isset($_POST['jenis_surat'])) {
             $dataSurat = $this->db->from(request('jenis_surat'));
         }
-        if (isset($_POST['awal']) && isset($_POST['akhir'])) {
-            $dataSurat->where('tanggal_surat >=', "'" . request('awal') . "'", false);
-            $dataSurat->where('tanggal_surat <=', "'" . request('akhir') . "'", false);
+        if (isset($_POST['bulan']) && isset($_POST['tahun'])) {
+            $dataSurat->where('MONTH(tanggal_surat) =', "'" . request('bulan') . "'", false);
+            $dataSurat->where('YEAR(tanggal_surat) =', "'" . request('tahun') . "'", false);
         }
         if (isset($_POST['kode_surat']) && request('kode_surat')) {
-            $dataSurat->where('kode_ssurat', $_POST['kode_surat']);
+            $dataSurat->where('kode_surat', $_POST['kode_surat']);
         }
         $data = $dataSurat->get()->result_array();
-        // echo '<pre>';
-        // print_r($data);
-        // die;
+
         if (!$dataSurat || empty($data)) {
             $this->session->set_flashdata('notif', 'Data Tidak DItemukan');
             return redirect('/surat/laporan');
@@ -592,15 +604,10 @@ class Surat extends CI_Controller
             'jenis_surat',
             str_replace('_', ' ', ucfirst(request('jenis_surat')))
         );
-        $templateProcessor->setValue(
-            'awal',
-            str_replace('_', ' ', ucfirst(request('awal')))
-        );
-        $templateProcessor->setValue(
-            'akhir',
-            str_replace('_', ' ', ucfirst(request('akhir')))
-        );
+        $templateProcessor->setValue('bulan', $bulan[request("bulan")]);
+        $templateProcessor->setValue('akhir', request("tahun"));
 
+        // prindie($data);
         $templateProcessor->cloneRow('no', count($data));
 
         $num = 1;
@@ -608,13 +615,13 @@ class Surat extends CI_Controller
             $templateProcessor->setValues(
                 [
                     "no#$num" => $num,
-                    "asall#$num" => $data[$i]['asal'] == '' ? 'Pengadilan Agama Jakata Utara' : $data[$i]['asal'],
-                    "tujuan#$num" => $data[$i]['tujuan'] == '' ? 'Pengadilan Agama Jakarta Utara' : $data[$i]['tujuan'],
+                    "asal#$num" => $data[$i]['asal'] ?? 'Pengadilan Agama Jakata Utara',
+                    "tujuan#$num" => $data[$i]['tujuan']  ?? 'Pengadilan Agama Jakarta Utara',
                     "n_surat#$num" => $data[$i]['nomor_surat'],
                     "tgl_surat#$num" => $data[$i]['tanggal_surat'],
                     "perihal#$num" => $data[$i]['perihal'],
                     "dikirim#$num" => $data[$i]['tanggal_dikirim'],
-                    "diterima#$num" => $data[$i]['tanggal_diterima'],
+                    "diterima#$num" => $data[$i]['tanggal_diterima'] ?? '',
                 ]
             );
             $num++;
@@ -766,7 +773,7 @@ class Surat extends CI_Controller
     {
         if ($nomor == null) {
             $this->session->set_flashdata("notif", "Nomor surat belum ditentukan");
-            return redirect("/surat/surat_keluar");
+            return redirect($_SERVER["HTTP_REFERER"]);
         }
 
         template('template', 'persuratan/sub_nomor', [
