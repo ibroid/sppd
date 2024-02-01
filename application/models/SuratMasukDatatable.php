@@ -23,7 +23,7 @@ class SuratMasukDatatable extends CI_Model
             $this->db->where('tanggal_diterima >=', $this->session->userdata('sm_awal_periode'));
             $this->db->where('tanggal_diterima <=', $this->session->userdata('sm_akhir_periode'));
         } else {
-            $this->db->where('YEAR(tanggal_diterima) = ', date("Y"), false);
+            $this->db->where('YEAR(tanggal_diterima)', date("Y"));
         }
         $this->db->from($this->table);
         $i = 0;

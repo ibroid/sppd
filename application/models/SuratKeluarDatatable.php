@@ -26,7 +26,7 @@ class SuratKeluarDatatable extends CI_Model
             $this->db->where('tanggal_dikirim >=', $this->session->userdata('awal_periode'));
             $this->db->where('tanggal_dikirim <=', $this->session->userdata('akhir_periode'));
         } else {
-            $this->db->where('MONTH(tanggal_surat)', date("m"), TRUE);
+            // $this->db->where('MONTH(tanggal_surat)', date("m"), TRUE);
             $this->db->where('YEAR(tanggal_surat)', date("Y"), TRUE);
         }
         if ($this->klasifikasi == null) {
