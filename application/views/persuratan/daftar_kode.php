@@ -23,7 +23,7 @@
                             <input required type="text" id="input-kode-surat" name="kode_surat" placeholder="Kode Surat" class="form-control">
                         </div>
                         <div class="col-md">
-                            <textarea required placeholder="Keterangan Kode Surat" name="keterangan" id="textarea-keterangan" class="form-control" rows="1"></textarea>
+                            <textarea required placeholder="Keterangan Kode Surat" name="keterangan" maxlength="1564" id="textarea-keterangan" class="form-control" rows="1"></textarea>
                         </div>
                         <div class="col-md-2">
                             <div class="d-flex">
