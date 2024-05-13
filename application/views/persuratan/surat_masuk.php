@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.css" rel="stylesheet">
 
 <div class="content-wrapper container">
 	<div class="page-heading">
@@ -91,7 +92,7 @@
 										<label class="align-right">Asal Surat <i class="text-danger inline">*</i></label>
 									</div>
 									<div class="col-md-7 form-group">
-										<input type="text" id="input-asal-surat" class="form-control" name="asal" placeholder="Asal Surat : Wajib Di Isi" required>
+										<input type="text" id="input-asal-surat" class="form-control typeahead-asal-surat" name="asal" placeholder="Asal Surat : Wajib Di Isi" required>
 									</div>
 								</div>
 								<div class="row">
@@ -101,7 +102,7 @@
 										<label class="text-end">Nomor Surat <i class="text-danger inline">*</i></label>
 									</div>
 									<div class="col-md-7 form-group">
-										<input id="add-input-nomor-surat" type="text" class="form-control" name="nomor_surat" placeholder="Nomor Surat : Wajib Di Isi" required>
+										<input id="add-input-nomor-surat" type="text" class="form-control typeahead-nomor-surat" name="nomor_surat" placeholder="Nomor Surat : Wajib Di Isi" required>
 									</div>
 								</div>
 								<div class="row">
@@ -162,6 +163,22 @@
 									</div>
 									<div class="col-md-7 form-group">
 										<input type="text" class="form-control" name="catatan" placeholder="Catatan">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1">
+									</div>
+									<div class="col-md-3">
+										<label class="text-end">Klasifikasi</label>
+									</div>
+									<div class="col-md-7 form-group">
+										<select required name="klasifikasi" id="select-klasifikasi" class="form-control form-control-select">
+											<option value="" selected disabled>--- Pilih Disini ---</option>
+											<option value="SR">Sangat Rahasia</option>
+											<option value="R">Rahasia</option>
+											<option value="T">Terbatas</option>
+											<option value="B">Biasa</option>
+										</select>
 									</div>
 								</div>
 								<div class="row">
@@ -251,7 +268,7 @@
 								<label class="align-right">Asal Surat <i class="text-danger inline">*</i></label>
 							</div>
 							<div class="col-md-7 form-group">
-								<input type="text" id="edit-input-asal-surat" class="form-control" name="asal" placeholder="Asal Surat : Wajib Di Isi" required>
+								<input type="text" id="edit-input-asal-surat" class="form-control typeahead-asal-surat" name="asal" placeholder="Asal Surat : Wajib Di Isi" required>
 							</div>
 						</div>
 						<div class="row">
@@ -261,7 +278,7 @@
 								<label class="text-end">Nomor Surat <i class="text-danger inline">*</i></label>
 							</div>
 							<div class="col-md-7 form-group">
-								<input type="text" id="input-nomor-surat" class="form-control" name="nomor_surat" placeholder="Nomor Surat : Wajib Di Isi" required>
+								<input type="text" id="input-nomor-surat" class="form-control ypeahead-nomor-surat" name="nomor_surat" placeholder="Nomor Surat : Wajib Di Isi" required>
 							</div>
 						</div>
 						<div class="row">
@@ -322,6 +339,22 @@
 							</div>
 							<div class="col-md-7 form-group">
 								<input type="text" id="input-catatan" class="form-control" name="catatan" placeholder="Catatan">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1">
+							</div>
+							<div class="col-md-3">
+								<label class="text-end">Klasifikasi</label>
+							</div>
+							<div class="col-md-7 form-group">
+								<select required name="klasifikasi" id="select-klasifikasi" class="form-control form-control-select">
+									<option value="" selected disabled>--- Pilih Disini ---</option>
+									<option value="SR">Sangat Rahasia</option>
+									<option value="R">Rahasia</option>
+									<option value="T">Terbatas</option>
+									<option value="B">Biasa</option>
+								</select>
 							</div>
 						</div>
 						<div class="row mt-3">
@@ -407,6 +440,9 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
+				<div class="text-center">
+					<h4>Klasifikasi Surat : </h4>
+				</div>
 				<table class="table table-bordered ">
 					<thead>
 						<tr>
@@ -450,30 +486,73 @@
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/js/autocomplete.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
 <script>
 	var editModal = null;
 	var disposModal = null;
 	var lihatDisposModal = null;
 	var tableDisposisi = null;
+	$(document).ready(function() {
+		$('.typeahead-asal-surat').typeahead({
+			source: function(query, result) {
+				$.ajax({
+					url: '<?= base_url("surat/autocomplete_asal_surat") ?>',
+					method: 'POST',
+					data: {
+						query: query
+					},
+					dataType: 'json',
+					success: function(data) {
+						result($.map(data, function(item) {
+							return item.asal;
+						}));
+					}
+				});
+			}
+		});
+
+		$('.typeahead-nomor-surat').typeahead({
+			source: function(query, result) {
+				$.ajax({
+					url: '<?= base_url("surat/autocomplete_nomor_surat") ?>',
+					method: 'POST',
+					data: {
+						query: query
+					},
+					dataType: 'json',
+					success: function(data) {
+						result($.map(data, function(item) {
+							return item.nomor_surat;
+						}));
+					}
+				});
+			}
+		});
+	});
+
 	$(document).ready(() => {
 		editModal = new bootstrap.Modal(document.getElementById('modalId'))
 		disposModal = new bootstrap.Modal(document.getElementById('modalDisposisi'))
 		lihatDisposModal = new bootstrap.Modal(document.getElementById('modalLihatDisposisi'))
 
-		const ac = new Autocomplete(document.getElementById('input-asal-surat'), {
-			data: JSON.parse('<?= json_encode($suggest_asal_surat)  ?>'),
-			maximumItems: 10,
-		});
+		// const ac = new Autocomplete(document.getElementById('input-asal-surat'), {
+		// 	data: JSON.parse('<?php #echo json_encode($suggest_asal_surat)  
+														?>'),
+		// 	maximumItems: 10,
+		// });
 
-		const ad = new Autocomplete(document.getElementById('edit-input-asal-surat'), {
-			data: JSON.parse('<?= json_encode($suggest_asal_surat)  ?>'),
-			maximumItems: 10,
-		});
+		// const ad = new Autocomplete(document.getElementById('edit-input-asal-surat'), {
+		// 	data: JSON.parse('<?php #echo json_encode($suggest_asal_surat)  
+														?>'),
+		// 	maximumItems: 10,
+		// });
 
-		const an = new Autocomplete(document.getElementById('add-input-nomor-surat'), {
-			data: JSON.parse('<?= json_encode($suggest_nomor_surat)  ?>'),
-			maximumItems: 10,
-		});
+		// const an = new Autocomplete(document.getElementById('add-input-nomor-surat'), {
+		// 	data: JSON.parse('<?php #echo json_encode($suggest_nomor_surat)  
+														?>'),
+		// 	maximumItems: 10,
+		// });
 
 		const ap = new Autocomplete(document.getElementById('input-pegawai'), {
 			data: JSON.parse('<?= json_encode($suggest_pegawai)  ?>'),
@@ -628,7 +707,7 @@
 		disposModal.show()
 	}
 
-	const lihatDisposisi = async (id) => {
+	const lihatDisposisi = async (id, klasifikasi) => {
 		Swal.fire({
 			title: 'Mohon Tunggu',
 			willOpen: () => Swal.showLoading(),
@@ -659,6 +738,7 @@
 			})
 			el += `<tr><td colspan="4" class="text-center"><a href="javascript:void(0)" onclick="disposisi(${id})" class="btn btn-sm icon-left btn-success">Tambah Disposisi</a></td></tr>`;
 			$('#tbody-disposisi').html(el)
+			$("#modalLihatDisposisi > div > div > div.modal-body > div > h4").text("Klasifikasi Surat : " + klasifikasi)
 			lihatDisposModal.show()
 			Swal.close()
 		}

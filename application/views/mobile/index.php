@@ -19,7 +19,7 @@
 			margin: 0 auto;
 		}
 	</style>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.3.6/dist/vuetify.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/vuetify@3.3.6/dist/vuetify.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.css" />
 	<title>ARDI Mobile</title>
 </head>
@@ -46,8 +46,8 @@
 	</div>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.3.6/dist/vuetify.min.js"></script>
+	<script src="https://unpkg.com/vue@3.3.4/dist/vue.global.prod.js"></script>
+	<script src="https://unpkg.com/vuetify@3.3.6/dist/vuetify.min.js"></script>
 	<script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
 	<script src="<?= base_url('assets/vendors/sweetalert2/sweetalert2.all.min.js') ?>"></script>
 

@@ -10,4 +10,12 @@ class Pegawai  extends Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function autocomplete_pegawai()
+    {
+        $querySearch = request('query');
+        $data = $this->db->query("SELECT nama FROM master_pegawai WHERE nama LIKE '%$querySearch%' LIMIT 15")->result_array();
+
+        echo json_encode($data);
+    }
 }

@@ -67,21 +67,7 @@ class Surat_keluar extends CI_Controller
 
   public function baru()
   {
-    $tuj_surat = $this->db->query("SELECT DISTINCT(tujuan) as tujuan FROM surat_keluar")->result();
-    // print_r($asal_surat);
-    // die;
-    $suggest_tujuan_surat = [];
-
-    foreach ($tuj_surat as $key => $value) {
-      array_push($suggest_tujuan_surat, [
-        'label' => $value->tujuan,
-        'value' => $value->tujuan,
-      ]);
-    }
-
-    template('template', 'surat_keluar/surat_keluar_baru', [
-      'sug_tuj_surat' => $suggest_tujuan_surat
-    ]);
+    template('template', 'surat_keluar/surat_keluar_baru');
   }
 
   public function datatable_baru()

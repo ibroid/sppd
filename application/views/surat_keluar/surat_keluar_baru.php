@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.css" rel="stylesheet">
+
 <div class="content-wrapper container-fluid container">
   <div class="page-heading">
     <h3>Kelola Surat Keluar</h3>
@@ -70,7 +72,7 @@
                     <label class="align-right">Tujuan Surat <i class="text-danger inline">*</i></label>
                   </div>
                   <div class="col-md-7 form-group">
-                    <input type="text" class="form-control" name="tujuan" placeholder="Tujuan Surat : Wajib Di Isi" required id="input-tujuan-surat">
+                    <input type="text" class="form-control typeahead-tujuan-surat" name="tujuan" placeholder="Tujuan Surat : Wajib Di Isi" required id="input-tujuan-surat">
                   </div>
                 </div>
                 <div class="row">
@@ -265,13 +267,26 @@
 </div>
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script>
   var modalEdit = null;
   $(document).ready(() => {
-    const ac = new Autocomplete(document.getElementById('input-tujuan-surat'), {
-      data: JSON.parse('<?= json_encode($sug_tuj_surat)  ?>'),
-      maximumItems: 10,
+    $('.typeahead-tujuan-surat').typeahead({
+      source: function(query, result) {
+        $.ajax({
+          url: '<?= base_url('/surat/autocomplete_tujuan_surat') ?>',
+          method: 'POST',
+          data: {
+            query: query
+          },
+          dataType: 'json',
+          success: function(data) {
+            result($.map(data, function(item) {
+              return item.tujuan;
+            }));
+          }
+        });
+      }
     });
     modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'))
     $('#tableSuratKeluar').DataTable({

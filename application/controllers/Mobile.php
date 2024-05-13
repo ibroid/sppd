@@ -19,21 +19,21 @@ class Mobile extends CI_Controller
             }
 
             $allowedIP = pengaturan()->mobile_allowed_ip;
-            if (str_contains($allowedIP, ";")) {
-                $allowedIPs = collect(explode(";", $allowedIP));
-                // print_r($allowedIPs);
-                if (!$allowedIPs->contains($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-                    set_status_header(400);
-                    echo "Your ip is not allowed. Please contact web administrator";
-                    exit();
-                }
-            } else {
-                if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $allowedIP) {
-                    set_status_header(400);
-                    echo "Your ip is not allowed. Please contact web administrator";
-                    exit();
-                }
-            }
+            // if (str_contains($allowedIP, ";")) {
+            //     $allowedIPs = collect(explode(";", $allowedIP));
+            //     // print_r($allowedIPs);
+            //     if (!$allowedIPs->contains($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+            //         set_status_header(400);
+            //         echo "Your ip is not allowed. Please contact web administrator";
+            //         exit();
+            //     }
+            // } else {
+            //     if ($_SERVER["HTTP_CF_CONNECTING_IP"] != $allowedIP) {
+            //         set_status_header(400);
+            //         echo "Your ip is not allowed. Please contact web administrator";
+            //         exit();
+            //     }
+            // }
         } catch (\Throwable $th) {
             set_status_header(400);
             exit($th->getMessage());

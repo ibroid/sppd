@@ -39,39 +39,23 @@ class Surat extends CI_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
 
-        $asal_surat = $this->db->query("SELECT DISTINCT(asal) as asal FROM surat_masuk")->result();
         $pegawai = $this->db->query("SELECT nama,id FROM master_pegawai")->result();
-        $nomor_surat = $this->db->query("SELECT nomor_surat FROM surat_masuk")->result();
         // print_r($asal_surat);
         // die;
-        $suggest_asal_surat = [];
         $suggest_pegawai = [];
-        $suggest_nomor_surat = [];
 
-        foreach ($asal_surat as $kas => $vas) {
-            array_push($suggest_asal_surat, [
-                'label' => $vas->asal,
-                'value' => $vas->asal,
-            ]);
-        }
         foreach ($pegawai as $kp => $vp) {
             array_push($suggest_pegawai, [
                 'label' => $vp->nama,
                 'value' => $vp->id,
             ]);
         }
-        foreach ($nomor_surat as $kns => $vns) {
-            array_push($suggest_nomor_surat, [
-                'label' => $vns->nomor_surat,
-                'value' => $vns->nomor_surat,
-            ]);
-        }
+
         template('template', 'persuratan/surat_masuk', [
-            'suggest_asal_surat' => $suggest_asal_surat,
             'suggest_pegawai' => $suggest_pegawai,
-            'suggest_nomor_surat' => $suggest_nomor_surat
         ]);
     }
+
     public function save_surat_masuk()
     {
         if (!must_post()) {
@@ -108,6 +92,7 @@ class Surat extends CI_Controller
                 'perihal' => request('perihal'),
                 'ringkasan_isi' => request('ringkasan_isi'),
                 'catatan' => request('catatan'),
+                'klasifikasi' => request('klasifikasi'),
                 'file' => $filename
             ]);
             $this->session->set_flashdata('notif', 'Surat masuk berhasil disimpan');
@@ -149,7 +134,7 @@ class Surat extends CI_Controller
             $row[] = format_tanggal($list->tanggal_surat);
             $row[] = $list->perihal . '<details>' . $list->ringkasan_isi . '</details>';
             $row[] = format_tanggal($list->tanggal_diterima) . '<br>Catatan : ' . $list->catatan;
-            $row[] = checkDisposisi($list->id);
+            $row[] = checkDisposisi($list->id, $list->klasifikasi);
             $row[] = checkFileSuratMasuk($list);
             $row[] = '<button onclick="editData(this)" data-json=\'' . json_encode($list, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '\' class="btn btn-warning  btn-sm">Edit</button><button onclick="deleteData(' . $list->id . ')" class="btn btn-danger btn-sm">Hapus</button>';
             $data[] = $row;
@@ -207,6 +192,7 @@ class Surat extends CI_Controller
                     'perihal' => request('perihal'),
                     'ringkasan_isi' => request('ringkasan_isi'),
                     'catatan' => request('catatan'),
+                    'klasifikasi' => request('klasifikasi'),
                 ]);
                 $this->session->set_flashdata('notif', 'Data berhasil diperbarui');
             } catch (\Throwable $th) {
@@ -399,24 +385,7 @@ class Surat extends CI_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
 
-        // print_r($this->session->userdata('awal_periode'));
-        // print_r($this->session->userdata('akhir_periode'));
-        // die;
-        $tuj_surat = $this->db->query("SELECT DISTINCT(tujuan) as tujuan FROM surat_keluar")->result();
-        // print_r($asal_surat);
-        // die;
-        $suggest_tujuan_surat = [];
-
-        foreach ($tuj_surat as $key => $value) {
-            array_push($suggest_tujuan_surat, [
-                'label' => $value->tujuan,
-                'value' => $value->tujuan,
-            ]);
-        }
-
-        template('template', 'persuratan/surat_keluar', [
-            'sug_tuj_surat' => $suggest_tujuan_surat
-        ]);
+        template('template', 'persuratan/surat_keluar');
     }
     public function save_surat_keluar()
     {
@@ -780,5 +749,29 @@ class Surat extends CI_Controller
             'nomor' => $nomor,
             'data' => $this->db->query("SELECT * FROM surat_keluar WHERE nomor_surat LIKE '$nomor.%'")->result()
         ]);
+    }
+
+    public function autocomplete_asal_surat()
+    {
+        $querySearch = request('query');
+        $data = $this->db->query("SELECT DISTINCT(asal) FROM surat_masuk WHERE asal LIKE '$querySearch%' LIMIT 15")->result_array();
+
+        echo json_encode($data);
+    }
+
+    public function autocomplete_tujuan_surat()
+    {
+        $querySearch = request('query');
+        $data = $this->db->query("SELECT DISTINCT(tujuan) FROM surat_keluar WHERE tujuan LIKE '$querySearch%' LIMIT 15")->result_array();
+
+        echo json_encode($data);
+    }
+
+    public function autocomplete_nomor_surat()
+    {
+        $querySearch = request('query');
+        $data = $this->db->query("SELECT nomor_surat FROM surat_masuk WHERE nomor_surat LIKE '%$querySearch%' LIMIT 15")->result_array();
+
+        echo json_encode($data);
     }
 }

@@ -15,14 +15,14 @@ function checkFileSuratKeluar($list)
     return '<a onclick="uploadFile(' . $list->id . ')"  href="javascript:void(0)"><span class="badge bg-danger icon">Upload</span></a>';
 }
 
-function checkDisposisi($id)
+function checkDisposisi($id, $klasifikasi)
 {
     $ci = get_instance();
     $cek = $ci->db->get_where('disposisi', ['surat_masuk_id' => $id])->result();
     if (!$cek) {
         return '<a href="javascript:void(0)" onclick="disposisi(' . $id . ')" class="btn btn-sm icon-left btn-success">Disposisi</a>';
     }
-    return '<a href="javascript:void(0)" onclick="lihatDisposisi(' . $id . ')" class="btn btn-sm icon-left btn-primary">Lihat</a>';
+    return '<a href="javascript:void(0)" onclick="lihatDisposisi(' . $id . ',' . "'" . $klasifikasi . "'" . ')" class="btn btn-sm icon-left btn-primary">Lihat</a>';
 }
 
 function checkNomorSurat($list)
