@@ -104,12 +104,12 @@ class Disposisi_surat extends CI_Controller
 
         // $templateProcessor->setValue('disposisi_pertama#1', 'Yth. ' . $data[0]->pegawai->jabatan->nama_jabatan . '. ' . $data[0]->isi_disposisi);
 
-        $no = 1;
+        $no = 0;
         foreach ($data as $i => $v) {
-            if ($v->pegawai->jabatan_id != 1) {
-                $templateProcessor->setValue("CATATAN_DISPOSISI#$no", "$no. -" . $v->isi_disposisi);
-                $templateProcessor->setValue("TUJUAN_DISPOSISI#$no", "$no. Yth. " . $v->pegawai->jabatan->nama_jabatan);
-            }
+            // if ($v->pegawai->jabatan_id != 1) {
+            $templateProcessor->setValue("CATATAN_DISPOSISI#$no", "$no. -" . $v->isi_disposisi);
+            $templateProcessor->setValue("TUJUAN_DISPOSISI#$no", "$no. Yth. " . $v->pegawai->jabatan->nama_jabatan);
+            // }
             $no++;
         }
 

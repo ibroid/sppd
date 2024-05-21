@@ -17,6 +17,7 @@ if (!function_exists('download_hasil')) {
 
         readfile('./hasil/' . $filename);
         unlink('./hasil/' . $filename);
+        die;
         exit();
     }
 }
