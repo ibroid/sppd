@@ -554,8 +554,11 @@ class Surat extends CI_Controller
         if (isset($_POST['jenis_surat'])) {
             $dataSurat = $this->db->from(request('jenis_surat'));
         }
+
         if (isset($_POST['bulan']) && isset($_POST['tahun'])) {
-            $dataSurat->where('MONTH(tanggal_surat) =', "'" . request('bulan') . "'", false);
+            if (request('bulan') != 0) {
+                $dataSurat->where('MONTH(tanggal_surat) =', "'" . request('bulan') . "'", false);
+            }
             $dataSurat->where('YEAR(tanggal_surat) =', "'" . request('tahun') . "'", false);
         }
         if (isset($_POST['kode_surat']) && request('kode_surat')) {
@@ -563,34 +566,39 @@ class Surat extends CI_Controller
         }
         $data = $dataSurat->get()->result_array();
 
+        // prindie($data);
+
         if (!$dataSurat || empty($data)) {
             $this->session->set_flashdata('notif', 'Data Tidak DItemukan');
             return redirect('/surat/laporan');
         }
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(FCPATH . 'template/template_laporan_surat.docx');
+
         $templateProcessor->setValue(
             'jenis_surat',
-            str_replace('_', ' ', ucfirst(request('jenis_surat')))
+            str_replace('_', ' ', strtoupper(request('jenis_surat')))
         );
-        $templateProcessor->setValue('bulan', $bulan[request("bulan")]);
-        $templateProcessor->setValue('akhir', request("tahun"));
+        $templateProcessor->setValue('bulan', strtoupper($bulan[request("bulan") - 1]));
+        $templateProcessor->setValue('tahun', request("tahun"));
 
-        // prindie($data);
         $templateProcessor->cloneRow('no', count($data));
+        // prindie($templateProcessor->getVariables());
 
         $num = 1;
         for ($i = 0; $i < count($data); $i++) {
             $templateProcessor->setValues(
                 [
                     "no#$num" => $num,
-                    "asal#$num" => $data[$i]['asal'] ?? 'Pengadilan Agama Jakata Utara',
-                    "tujuan#$num" => $data[$i]['tujuan']  ?? 'Pengadilan Agama Jakarta Utara',
+                    "asal#$num" => $data[$i]['asal'] ?? '###',
+                    "tujuan#$num" => $data[$i]['tujuan']  ?? '###',
                     "n_surat#$num" => $data[$i]['nomor_surat'],
-                    "tgl_surat#$num" => $data[$i]['tanggal_surat'],
+                    "tgl_surat#$num" => format_tanggal($data[$i]['tanggal_surat']) ?? null,
                     "perihal#$num" => $data[$i]['perihal'],
-                    "dikirim#$num" => $data[$i]['tanggal_dikirim'],
-                    "diterima#$num" => $data[$i]['tanggal_diterima'] ?? '',
+                    "dikirim#$num" => format_tanggal($data[$i]['tanggal_dikirim'] ?? null),
+                    "diterima#$num" => format_tanggal($data[$i]['tanggal_diterima'] ?? null),
+                    "kode#$num" => $data[$i]['kode_surat'] ?? '###',
+                    "nomor#$num" => $data[$i]['nomor_surat'] ?? '###',
                 ]
             );
             $num++;
@@ -601,7 +609,7 @@ class Surat extends CI_Controller
 
         header('Content-Description: File Transfer');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        header('Content-Disposition: attachment; filename=laporan_surat.docx');
+        header('Content-Disposition: attachment; filename=LAPORAN_' . strtoupper(request('jenis_surat')) . '_' . strtoupper($bulan[request('bulan') - 1]) . '_' . request('tahun') . '.docx');
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

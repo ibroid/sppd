@@ -67,7 +67,6 @@
                                 backdrop: true,
                                 allowOutsideClick: false,
                                 showConfirmButton: false })" action="<?= base_url('/surat_keluar/save_sub') ?>" method="post" class="form form-horizontal">
-                    <input type="hidden" id="hidden-surat-id" name="id">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-1">

@@ -38,8 +38,11 @@ function format_hari_tanggal($waktu = '')
     }
 }
 
-function format_tanggal($tanggal)
+function format_tanggal($tanggal = null)
 {
+    if ($tanggal == null) {
+        return null;
+    }
     $bulan = array(
         1 =>   'Januari',
         'Februari',
