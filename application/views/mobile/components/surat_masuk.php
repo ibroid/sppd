@@ -77,7 +77,6 @@
     <v-form ref="disposisiForm">
         <v-card-item>
             <v-card-subtitle>Disposisi Surat ke:</v-card-subtitle>
-            <!-- <v-select item-title="nama_jabatan" item-value="id" required label="Pilih Pegawai" :items="dataDisposisiOrder" v-model="selectedDisposisi"></v-select> -->
             <v-autocomplete v-model="selectedDisposisi" required label="Ketik nama pegawai" item-title="nama" item-value="id" :items="pegawaiList"></v-autocomplete>
         </v-card-item>
 

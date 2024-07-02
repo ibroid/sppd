@@ -41,8 +41,8 @@ class Surat_masuk extends CI_Controller
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-        // ob_clean();
-        // flush();
+        ob_clean();
+        flush();
         readfile(FCPATH . 'hasil/surat_masuk/' . $data->file);
         exit();
     }

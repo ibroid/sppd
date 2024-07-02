@@ -188,9 +188,9 @@
 				<div class="card">
 					<div class="card-body py-1 px-2">
 						<div class="d-flex align-items-center">
-							<div class="avatar avatar-xl">
+							<!-- <div class="avatar avatar-xl">
 								<img src="<?= base_url('logo/foto_ketua.png') ?>" alt="Foto Ketua" />
-							</div>
+							</div> -->
 							<div class="ms-3 name">
 								<h5 class="font-bold"><?= pengaturan()->nama_ketua ?></h5>
 								<h6 class="text-muted mb-0">Ketua Satuan Kerja</h6>
