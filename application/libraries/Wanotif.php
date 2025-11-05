@@ -38,7 +38,9 @@ class Wanotif
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string)
+                'Content-Length: ' . strlen($data_string),
+                'Accept: application/json',
+                'X-Api-Key: ' .  $_ENV["WA_API_TOKEN"]
             ));
 
             $result = curl_exec($ch);
