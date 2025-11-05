@@ -23,7 +23,7 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth">
-                        <a href="index.html"><img src="<?= base_url($_ENV["TITLE_IMAGE"]) ?>" alt="Logo"></a>
+                        <a href="index.html"><img width="300px" src="<?= base_url($_ENV["TITLE_IMAGE"]) ?>" alt="Logo"></a>
                     </div>
                     <?php if ($this->session->flashdata('notif')) { ?>
                         <div class="alert alert-info">
@@ -54,7 +54,7 @@
             </div>
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
-                    <img style="margin:300px" width="700" src="<?= base_url('assets/images/login.png') ?>" alt="Gambar Login">
+                    <img style="margin:200px" width="550" src="<?= base_url('assets/SiSukma.png') ?>" alt="Gambar Login">
                 </div>
             </div>
         </div>

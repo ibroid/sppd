@@ -17,8 +17,8 @@ class EloquentDatabase extends Capsule
       'database' => $_ENV["DATABASE_NAME"],
       'username' => $_ENV["DATABASE_USER"],
       'password' => $_ENV["DATABASE_PASS"],
-      'charset' => 'utf8',
-      'collation' => 'utf8_unicode_ci',
+      'charset' => 'latin1',
+      'collation' => 'latin1_swedish_ci',
       'prefix' => '',
     ]);
     parent::setEventDispatcher(new Dispatcher(new Container));
